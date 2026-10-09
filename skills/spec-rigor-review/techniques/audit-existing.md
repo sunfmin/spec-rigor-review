@@ -27,12 +27,16 @@ change that fixes it.
    side by side.
 8. **A coverage switch is off.** Overflow, memory, or unwinding checks disabled; only
    some modules or functions verified; a stub in place of the function under test.
-9. **The model no longer matches the code.** An action in the model has no
-   counterpart in the code, or the code has a transition the model lacks. List both
-   directions.
-10. **The rule restates the implementation, or anything satisfies it.** An invariant
+9. **The model is not connected to the code.** No test compares the model or
+   reference model with the production code: no differential test, no trace replay,
+   no log validation. A comment or a table of correspondences does not count. The
+   fix is the conformance test in `writing-checks.md`.
+10. **The model no longer matches the code.** An action in the model has no
+    counterpart in the code, or the code has a transition the model lacks. List both
+    directions.
+11. **The rule restates the implementation, or anything satisfies it.** An invariant
     copied from the code, or one so weak that a wrong implementation would pass.
-11. **The specification was changed to fit.** History shows a postcondition weakened
+12. **The specification was changed to fit.** History shows a postcondition weakened
     or a precondition strengthened in the same change that made the check pass.
-12. **Unpinned tool.** The checker's version floats, so a release can change the
+13. **Unpinned tool.** The checker's version floats, so a release can change the
     result without a change to the code.

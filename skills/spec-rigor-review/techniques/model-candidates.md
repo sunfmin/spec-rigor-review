@@ -33,6 +33,12 @@ Propose the smallest model that can show the bug: two or three actors, small val
 ranges, only the fields the invariants mention. Name the actions and the invariants in
 the finding. Do not write the model during the review.
 
+## The connection to the code
+
+Name the test that will connect the model to the code: usually traces from the model
+replayed against the function that holds the transitions. If no single function holds
+them, the candidate needs that refactor first; say so.
+
 ## The guarantee
 
 Say which one the proposed check gives:

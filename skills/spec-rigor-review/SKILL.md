@@ -66,8 +66,9 @@ existing checks; otherwise give each finding a labelled block.
   evidence for it, how it is enforced today, the proposed enforcement, effort (S/M/L).
 - **Verification candidates** (`V`) — location, the invariant in one sentence, the
   evidence for it, the tool, the guarantee it would give (sampled, bounded, exhaustive
-  on a finite model, or proven), effort. A candidate that needs a refactor first says
-  "needs R1"; its effort excludes the refactor.
+  on a finite model, or proven), the test that will connect it to the code, effort. A
+  candidate that needs a refactor first says "needs R1"; its effort excludes the
+  refactor and includes the connecting test.
 - **Weak existing checks** (`W`) — location, which audit check failed, the offending
   line or command, the smallest fix. One row per failed check.
 - **Refactors** (`R`) — location, blocker, proposed change, the checks it unlocks,
@@ -82,7 +83,9 @@ it is confirmed only if you ran it. To confirm one during the review, work in a
 throwaway copy outside the repository.
 
 End with the three things to do first and the reason for each. Findings that depend on
-each other, such as a refactor and the check it unlocks, count as one.
+each other, such as a refactor and the check it unlocks, count as one. After them,
+list every question you asked the user about a rule, numbered, so none is buried in a
+finding.
 
 ## Rules that hold throughout
 
@@ -98,7 +101,10 @@ each other, such as a refactor and the check it unlocks, count as one.
   the output. For a check you audit, try to make it fail in a throwaway copy.
 - **State the guarantee exactly.** Sampling is not exhaustive, a bound is not a proof,
   and a proof covers the written specification, not the intent behind it.
-- **Say how a model stays tied to the code.** If the link is manual, say so.
+- **Connect every model to the code with a test.** A proof about a model says nothing
+  about the code until a test that runs with the project's other tests compares the
+  two. A model without one is reported as not connected. A check that runs on the
+  production code itself needs no such test.
 - **Learn each tool's syntax from the project and its documentation.** Do not write
   syntax from memory; these tools change every month.
 
