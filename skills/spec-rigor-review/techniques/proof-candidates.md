@@ -34,8 +34,9 @@ hold, and say in the finding how each one is met.
 - The specification in one sentence: what must hold of the result, given what about
   the input.
 - For a bounded check, the bound and why it is large enough.
-- For a reference model, how the production code will be compared against it. A model
-  nobody compares to the code proves nothing about the code.
+- For a reference model, the differential test that will compare the production code
+  against it, and where that test will run. A model nobody compares to the code
+  proves nothing about the code.
 
 ## Do not flag
 

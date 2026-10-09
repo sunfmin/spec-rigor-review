@@ -43,12 +43,34 @@ enough.
 
 ## Tie the model to the code
 
-Say which of these holds, in the summary and in a comment at the top of the model:
+A proof about a model says nothing about the code until something compares the two.
+For every model and every reference model, write a conformance test that runs with
+the project's other tests. A check that runs on the production code itself, such as
+a bounded checker on the real function, needs none.
 
-- Traces generated from the model are replayed against the code as tests.
-- Logs from the running code are checked against the model.
-- The correspondence is manual. Then list which function implements each action, so
-  a reader can check it and a later change can keep it.
+Choose the first kind that fits:
+
+- **Differential test** — for a reference model of a function. Generate inputs, give
+  each one to the model and to the production code, and require equal results. When
+  the model is written in another language, run it as a program or have it emit the
+  expected results.
+- **Trace replay** — for a model of a state machine. Have the checker emit
+  executions, replay each one against the code's transition function, and require the
+  same state after every step. This needs the transitions in one pure function; see
+  `refactors.md`.
+- **Log validation** — when the behavior appears only in the running system. Record
+  events from the code and check each recorded trace against the model.
+
+The conformance test is a property test with the model as its oracle. Write it by the
+rules of `test-rigor-review` when that skill is available: inputs drawn from the full
+domain the contract allows, and many runs. Then prove it can fail: change the code's
+behavior in one transition and confirm the test reports it.
+
+A manual correspondence, a list of which function implements each action, is not a
+connection. Use it only when the user chooses it after seeing what the test would
+cost, and report the model as **not connected**.
+
+Say in a comment at the top of the model which test connects it to the code.
 
 ## Accepting a proof
 
